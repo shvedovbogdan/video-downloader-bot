@@ -1,6 +1,8 @@
 # utils.py
 import requests
 from pathlib import Path
+import re
+import json
 
 def download_image_from_url(url: str, path: Path):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -13,7 +15,6 @@ def extract_tiktok_photo(url: str):
     try:
         headers = {"User-Agent": "Mozilla/5.0"}
         response = requests.get(url, headers=headers, timeout=10)
-        import re, json
         match = re.search(r'<script id="__UNIVERSAL_DATA_FOR_REHYDRATION__".*?>(.*?)</script>', response.text)
         if match:
             data = json.loads(match.group(1))

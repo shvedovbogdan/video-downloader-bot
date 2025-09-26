@@ -10,6 +10,7 @@ from aiogram.filters import Command
 from platforms import PLATFORM_HANDLERS
 from dotenv import load_dotenv
 
+# === НАЛАШТУВАННЯ ===
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 if not BOT_TOKEN:
@@ -24,6 +25,7 @@ def get_handler(url: str):
             return handler
     return None
 
+# --- /start ---
 @dp.message(Command("start"))
 async def start(message: Message):
     await message.answer(
@@ -35,7 +37,7 @@ async def start(message: Message):
     )
 # --- Команда /help ---
 @dp.message(Command("help"))
-async def cmd_help(message: types.Message):
+async def cmd_help(message: Message):
     help_text = (
         "📘 <b>Як користуватися ботом:</b>\n\n"
         "1. Знайди пост з рецептом, малюнком чи відео.\n"
@@ -54,7 +56,7 @@ async def cmd_help(message: types.Message):
 
 # --- Команда /lang ---
 @dp.message(Command("lang"))
-async def cmd_lang(message: types.Message):
+async def cmd_lang(message: Message):
     await message.answer(
         "🇺🇦 Мова бота: українська\n"
         "🇬🇧 Bot language: Ukrainian\n"

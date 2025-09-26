@@ -7,10 +7,20 @@ from utils import extract_tiktok_photo, download_image_from_url
 
 def download(url: str, temp_dir: str) -> Dict[str, List[Path]]:
     result = {"videos": [], "photos": [], "audios": []}
-    base_path = os.path.join(temp_dir, "tiktok")
 
-    # Спроба завантажити відео (включаючи слайд-шоу)
+    # Якщо це фото-пост (/photo/) — обробляємо окремо
+    if "/photo/" in url:
+        photo_url = extract_tiktok_photo(url)
+        if photo_url:
+            photo_path = Path(temp_dir) / "tiktok_photo.jpg"
+            download_image_from_url(photo_url, photo_path)
+            result["photos"].append(photo_path)
+        return result
+
+    # Інакше — звичайне відео або слайд-шоу (через yt-dlp)
+    base_path = os.path.join(temp_dir, "tiktok")
     try:
+        # Відео
         ydl_opts = {
             'format': 'best[height<=1080][filesize<50M]/best',
             'outtmpl': base_path + ".%(ext)s",
@@ -45,13 +55,5 @@ def download(url: str, temp_dir: str) -> Dict[str, List[Path]]:
 
     except Exception:
         pass
-
-    # Якщо це /photo/ — спробувати фото
-    if "/photo/" in url:
-        photo_url = extract_tiktok_photo(url)
-        if photo_url:
-            photo_path = Path(temp_dir) / "tiktok_photo.jpg"
-            download_image_from_url(photo_url, photo_path)
-            result["photos"].append(photo_path)
 
     return result
