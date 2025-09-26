@@ -1,9 +1,16 @@
-video-downloader-bot/\
-├── main.py \
-├── .env                  ← НЕ комітиться (є в .gitignore)\
+telegram_downloader_bot/\
+├── main.py                 # Головний файл (роутинг + запуск)\
+├── platforms/
+│   ├── __init__.py\
+│   ├── tiktok.py\
+│   ├── instagram.py\
+│   ├── youtube.py\
+│   ├── twitter.py\
+│   ├── pinterest.py\
+│   └── likee.py\
+├── .env\
 ├── .gitignore\
-├── requirements.txt      ← дуже корисно!\
-└── README.md             ← опціонально, але добре мати
+└── requirements.txt            ← опціонально, але добре мати
 
 
 # Video Downloader Bot
