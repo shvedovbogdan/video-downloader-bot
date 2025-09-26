@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 # === НАЛАШТУВАННЯ ===
 load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = os.getenv("BOT_TOKEN") # в .env: BOT_TOKEN=токен
 OWNER_ID = int(os.getenv("OWNER_ID", "0"))  # в .env: OWNER_ID=123456789
 
 if not BOT_TOKEN:
